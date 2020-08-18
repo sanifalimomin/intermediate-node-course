@@ -1,7 +1,7 @@
 {
   "name": "intermediateJS-template",
   "version": "1.0.0",
-  "description": "",
+  "description": "Check out the issues of this repo for the course materials.",
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
@@ -16,5 +16,14 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.7",
     "nodemon": "^1.19.3"
-  }
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanifalimomin/intermediate-node-course.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sanifalimomin/intermediate-node-course/issues"
+  },
+  "homepage": "https://github.com/sanifalimomin/intermediate-node-course#readme"
 }
