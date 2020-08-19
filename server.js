@@ -8,12 +8,6 @@ app.use(bodyParser.json());
 const User=require('./models/User');
 mongoose.connect('mongodb://localhost/userData')
 
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
-
-var multer  = require('multer')
-var upload = multer({ dest: 'uploads/' })
-
 app.listen(port, ()=>{
 	console.log(`server is listening on port:${port}`)
 })
@@ -45,39 +39,9 @@ function sendResponse(res,err,data){
 app.post('/users',(req,res)=>{
   User.create(
     {
-      name:req.body.newData.name,
-      email:req.body.newData.email,
-      password: bcrypt.hashSync(req.body.newData.password, saltRounds)
+      ...req.body.newData
     },
     (err,data)=>{sendResponse(res,err,data)})
-})
-
-
-app.post('/checkuser',(req,res)=>{
-  User.findOne({email:req.body.email},(err,data)=>{
-    if (err){
-      res.json({
-        success: false,
-        message: err
-      })
-    } else if (!data){
-      res.json({
-        success: false,
-        message: "Email Not Found!"
-      })
-    } else if(!bcrypt.compareSync(req.body.password,data.password)) {
-      res.json({
-        success: true,
-        message: "Password Incorrect!"
-      })
-    }
-    else{
-      res.json({
-        success: true,
-        message: "Correct Password!"
-      })
-    }
-  })
 })
 
 
@@ -99,9 +63,7 @@ app.route('/users/:id')
   User.findByIdAndUpdate(
     req.params.id,
     {
-      name:req.body.newData.name,
-      email:req.body.newData.email,
-      password: bcrypt.hashSync(req.body.newData.password, saltRounds)
+      ...req.body.newData
     },
     {
       new:true
